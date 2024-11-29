@@ -1,7 +1,7 @@
-ENV = "production";
-SERVER_PORT = 3001;
-LOCAL_SERVER = `http://localhost:${SERVER_PORT}`;
-PRODUCTION_SERVER = "https://sams-renovation-server.onrender.com";
+const ENV = "production";
+const SERVER_PORT = 3001;
+const LOCAL_SERVER = `http://localhost:${SERVER_PORT}`;
+const PRODUCTION_SERVER = "https://sams-renovation-server.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
