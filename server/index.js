@@ -7,7 +7,7 @@ import "dotenv/config";
 
 const app = express();
 
-const limiter = rateLimit({
+const contactLimiter = rateLimit({
   windowMs: 24 * 60 * 60 * 1000,
   max: 1,
   message: { error: "You can only submit one contact request per day." },
@@ -59,9 +59,8 @@ app.use(
   })
 );
 app.use(requestLogger);
-app.use(limiter);
 
-app.post("/contact", contactValidator, async (req, res) => {
+app.post("/contact", contactLimiter, contactValidator, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -159,6 +158,7 @@ app.post("/contact", contactValidator, async (req, res) => {
 });
 
 app.use(notFoundHandler);
+
 app.use(errorHandler);
 
 const port = process.env.PORT || 3000;
