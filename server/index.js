@@ -55,9 +55,7 @@ app.use(express.json());
 app.use(
   cors({
     origin:
-      process.env.NODE_ENV !== "development"
-        ? process.env.CLIENT_URL
-        : `http://localhost:${process.env.CLIENT_PORT}`,
+      process.env.NODE_ENV === "development" ? "*" : process.env.CLIENT_URL,
   })
 );
 app.use(requestLogger);
