@@ -1,3 +1,8 @@
+ENV = "production";
+SERVER_PORT = 3001;
+LOCAL_SERVER = `http://localhost:${SERVER_PORT}`;
+PRODUCTION_SERVER = "https://sams-renovation-server.onrender.com";
+
 document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
   const menuIcon = document.getElementById("menu-icon");
@@ -51,11 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       try {
-        const response = await fetch("http://localhost:3001/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formDataObject),
-        });
+        const response = await fetch(
+          `${
+            ENV === "development"
+              ? `${LOCAL_SERVER}/contact`
+              : `${PRODUCTION_SERVER}/contact`
+          }`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formDataObject),
+          }
+        );
 
         const data = await response.json();
 
