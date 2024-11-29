@@ -1,7 +1,8 @@
-const ENV = "production";
 const SERVER_PORT = 3001;
-const LOCAL_SERVER = `http://localhost:${SERVER_PORT}`;
-const PRODUCTION_SERVER = "https://sams-renovation-server.onrender.com";
+const API_URL =
+  window.location.hostname === "localhost"
+    ? `http://localhost:${SERVER_PORT}`
+    : "https://sams-renovation-server.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
@@ -56,18 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       try {
-        const response = await fetch(
-          `${
-            ENV === "development"
-              ? `${LOCAL_SERVER}/contact`
-              : `${PRODUCTION_SERVER}/contact`
-          }`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formDataObject),
-          }
-        );
+        const response = await fetch(`${API_URL}/contact`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formDataObject),
+        });
 
         const data = await response.json();
 
